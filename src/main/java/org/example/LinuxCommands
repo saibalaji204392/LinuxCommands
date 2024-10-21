@@ -1,0 +1,99 @@
+1.How do you find all `.log` files in the `/var/log` directory that were modified more than
+15 days ago, but exclude those files that are larger than 500MB?
+
+-
+find /var/log -name '*.log' -mtime +15 ! -size +500M
+
+2.How can you search for all symbolic links in a directory and delete them using a single
+`find` command?
+
+find /path/to/directory -type l -delete
+
+Q3: Using `find`, how do you locate files in the `/home/user` directory that are owned by a
+user other than the current owner?
+
+find /home/user ! -user $(deepak)
+
+Q4: How can you find all files in the `/etc` directory that contain the word "config" in their
+name and have write permission for others?
+
+find /etc -name '*config*' -perm -002
+
+Q5: How can you search for all lines in a file `/etc/passwd` that do not contain the word
+"bash"?
+
+grep -v 'bash' /etc/passwd
+
+Q6: How do you search recursively through all files in a directory for a specific string, showing
+only the matching filenames and excluding binary files?
+
+grep -rl --exclude-binary <string> /path/to/directory
+
+Q7: How can you search for the word "error" in a file, displaying the surrounding 3 lines
+before and after each match?
+
+grep -C 3 'error' /path/to/file
+
+Q8: Using `grep`, how would you find all occurrences of the word "root" in `/etc/passwd` that
+start at the beginning of a line?
+
+grep '^root' /etc/passwd
+
+Q9: How can you create a compressed archive of the `/home/user` directory, excluding all
+`.mp4` files?
+
+ tar --exclude='*.mp4' -czf user_archive.tar.gz -C /home user
+
+Q10: How would you extract only a specific file `file.txt` from a `.tar.gz` archive without
+extracting the entire archive?
+
+tar -xzf archive.tar.gz file.txt
+
+Q11: How can you append a file called `newfile.txt` to an existing `archive.tar.gz` without
+decompressing the archive?
+
+gunzip -c archive.tar.gz | tar -rf - newfile.txt && gzip -c archive.tar > archive.tar.gz && rm archive.tar
+
+Q12: How would you list the contents of a `.tar.gz` archive without extracting it?
+
+tar -tzf archive.tar.gz
+
+Q13: How can you list all currently running processes and then filter for processes that
+include the word "java", showing only the process ID and name?
+
+ps aux | grep '[j]ava'
+
+Q14: How can you display a list of all files in `/var/log`, then filter for files containing the word
+"error" using both `ls` and `grep` in a pipeline?
+
+ls /var/log | grep 'error'
+
+Q15: How do you count the number of lines in a file that contain the word "failed" using
+`grep` and `wc`?
+
+grep -c 'failed' /path/to/file
+
+Q16: How can you display the last 20 lines of a log file and filter the lines that contain the
+word "critical" using a combination of `tail` and `grep`?
+
+tail -n 20 /path/to/logfile | grep 'critical'
+
+
+Q17: How do you display the disk usage of all files and directories in `/home/user` in humanreadable format, sorted by size in descending order?
+
+du -ah /home/user | sort -hr
+
+Q18: How can you display the total disk usage of the `/var` directory but exclude the
+subdirectory `/var/log`?
+
+du -sh --exclude=/var/log /var/*
+
+Q19: How can you use `du` to find the disk usage of files larger than 100MB in a directory?
+
+find /path/to/directory -type f -size +100M -exec du -h {} +
+
+
+Q20: How do you display the disk usage of the 10 largest directories in the `/usr` directory
+using `du`?
+
+du -sh /usr/* | sort -hr | head -n 10
