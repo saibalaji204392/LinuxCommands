@@ -1,0 +1,102 @@
+Q1 . Given a list of student names and corresponding marks,
+        return the highest average marks (and print the corresponding student name - optional).
+The marks can be negative as well and a student may have multiple marks.
+
+Example:
+String[][] = {{“Charles”, 84},
+        {“John”, 100},
+        {“Andy”, 37},
+        {“John”, 23},
+        {“Charles”, 20}};
+
+        //Return 61.5 (which is of John's)
+
+        -->
+public class HighestAverage
+{
+    public static double findAvg(List<Integer> l1){
+        int n = l1.size();
+        double sum =0;
+        for(int n1 : l1){
+            sum+=n1;
+        }
+        double average = sum/n;
+        return average;
+    }
+    public static void main(String[] args) {
+        String[][] scores = {{"Charles", "84"},
+                {"John", "10"},
+                {"Andy", "37"},
+                {"John", "23"},
+                {"Charles", "21"}};
+        double highestavg = 0;
+        Map<String, List<Integer>> mp = new HashMap<String, List<Integer>>();
+        for(int i=0;i<scores.length;i++){
+            List<Integer> scorelist = mp.get(scores[i][0]);
+            if(scorelist==null){
+                List<Integer> score = new ArrayList<Integer>();
+                score.add(Integer.parseInt(scores[i][1]));
+                mp.put(scores[i][0], score);
+            }else{
+                scorelist.add(Integer.parseInt(scores[i][1]));
+                mp.put(scores[i][0], scorelist);
+            }
+        }
+        for(Map.Entry<String, List<Integer>> entry : mp.entrySet()){
+            double avg = findAvg(entry.getValue());
+            highestavg = Math.max(highestavg,avg);
+        }
+        System.out.println(highestavg);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+Q2 . Logest Palindrome substring in a string
+-->
+public class longestPalindrome {
+    public static void main(String[] args) {
+        String s = "iamthejuujehtmai";
+        System.out.println(longestPalSubstr(s));
+    }
+    static String longestPalSubstr(String s) {
+        int n = s.length();
+        int maxLen = 1, start = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                if (checkPal(s, i, j) && (j - i + 1) > maxLen) {
+                    start = i;
+                    maxLen = j - i + 1;
+                }
+            }
+        }
+        return s.substring(start, start + maxLen);
+    }
+    static boolean checkPal(String s, int low, int high) {
+        while (low < high) {
+            if (s.charAt(low) != s.charAt(high))
+                return false;
+            low++;
+            high--;
+        }
+        return true;
+    }
+}
+-----------------------------------------------------------------------------------------------
+Q3 . Pascal Triangle
+
+class Solution {
+    public static void main(String[] args) {
+        int n=4;
+        for(int line=1;line<=n;line++){
+            for(int i=0;i<n-line;i++){
+                System.out.print(" ");
+            }
+            int c=1;
+            for(int j=1;j<=line;j++){
+                System.out.print(c+" ");
+                c=c*(line-j)/j;
+            }
+            System.out.println();
+        }
+    }
+}
