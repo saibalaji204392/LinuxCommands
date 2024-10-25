@@ -1,0 +1,109 @@
+Q1 : Retrieve the first 5 employees by highest salary.
+  select * from employees order by salary desc limit 5;
+
+Q2 : Retrieve the 5 employees with the lowest salary, skipping the first 10 records.
+    select * from employees order by salary asc limit 5 offset 10;
+
+Q3 : Display each department's total salary, but only show departments where the total salary exceeds $30,000.
+      select department_name,sum(salary) as tot_salary
+      from employees e inner join departments d
+      on e.department_id=d.department_id
+      group by department_name
+      having sum(salary) >15000;
+
+Q4 : For each employee, display their salary and a note if it is above or below $7000.
+      select employee_id,first_name,salary
+      case when salary>7000 then 'Above $7000'
+      else 'Below $7000' end as salary_note
+      from employees;
+
+Q5 : List the projects that started in the last 6 months.
+      select project_id,project_name,start_date
+      from projects where start_date>=date_sub(curdate(), interval 6 month);
+
+Q6 : Display all projects, including those with no employees assigned.
+      SELECT p.project_id, p.project_name, e.employee_id
+      FROM projects p
+      LEFT JOIN employeeprojects ep ON p.project_id = ep.project_id
+      LEFT JOIN employees e ON ep.employee_id = e.employee_id;
+
+Q7 : Increase the salary of all employees in the 'Finance' department by 12%.
+      UPDATE employees
+      SET salary = salary * 1.12
+      WHERE department_id = (SELECT department_id FROM departments WHERE department_name = 'Finance');
+
+Q8 : Retrieve the first and last names of employees whose last names start with 'S'.
+      select first_name,last_name
+      from employees
+      where last_name like 'S%';
+
+Q9 : Count the number of employees assigned to each department.
+    select department_id, count(*) as employee_count
+    from employees
+    group by department_id;
+
+Q10 : Find the total number of hours worked by employees on each project.
+      SELECT project_id, SUM(hours_worked) AS total_hours
+      FROM employeeprojects
+      GROUP BY project_id;
+
+Q11 : Select the employees who earn more than the average salary.
+      SELECT first_name, last_name, salary
+      FROM employees
+      WHERE salary > (SELECT AVG(salary) FROM employees);
+
+Q12 : Display each project's start date in the format 'Month Day, Year' (e.g., January 01, 2024).
+      SELECT project_name, DATE_FORMAT(start_date, '%M %d, %Y') AS formatted_start_date
+      FROM projects;
+
+Q13 : List all employees, their department names, and the projects they have worked on.
+      SELECT e.employee_id, e.first_name, e.last_name, p.project_name
+      FROM employees e
+      LEFT JOIN employeeprojects ep ON e.employee_id = ep.employee_id
+      LEFT JOIN projects p ON ep.project_id = p.project_id;
+
+Q14 : List all projects, showing 'Assigned' if any employees are assigned and 'Unassigned' otherwise.
+      SELECT p.project_id, p.project_name,
+       CASE
+           WHEN ep.project_id IS NOT NULL THEN 'Assigned'
+           ELSE 'Unassigned'
+       END AS status
+      FROM projects p
+      LEFT JOIN employeeprojects ep ON p.project_id = ep.project_id
+      GROUP BY p.project_id, p.project_name;
+
+Q15 : Find the average salary of employees in each department, but only show departments where more than 5 employees work.
+      SELECT department_id, AVG(salary) AS average_salary
+      FROM employees
+      GROUP BY department_id
+      HAVING COUNT(*) > 5;
+
+Q16 : Concatenate employees' first and last names into a single full name, separated by a space.
+      SELECT CONCAT(FirstName, ' ', LastName) AS FullName
+      FROM Employees;
+
+Q17 : Set all employees with salaries above $8000 and belonging to the 'IT' department to a new salary of $8500.
+      UPDATE Employees
+      SET Salary = 8500
+      WHERE Department = 'IT' AND Salary > 8000;
+
+Q18 : Find the employee with the highest salary who works in the 'HR' department.
+      UPDATE Employees e
+      JOIN Department d ON e.department_id = d.department_id
+      SET e.Salary = 8500
+      WHERE d.DepartmentName = 'IT' AND e.Salary > 8000;
+
+Q19 : Find employees who have been assigned to projects that will end within the next 2 months.
+      SELECT e.Employee_ID, e.First_Name, e.Last_Name, p.Project_Name, p.End_Date
+      FROM Employees e
+      JOIN EmployeeProjects ep ON e.Employee_ID = ep.Employee_ID
+      JOIN Projects p ON ep.Project_ID = p.Project_ID
+      WHERE p.End_Date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 2 MONTH);
+
+Q20 : For each project, show the total salary billed based on the hours worked by employees, but only for projects where total billing exceeds $10,000.
+      SELECT p.Project_ID, p.Project_Name, SUM(e.Salary * ep.Hours_Worked) AS Total_Billing
+      FROM Projects p
+      JOIN EmployeeProjects ep ON p.Project_ID = ep.Project_ID
+      JOIN Employees e ON ep.Employee_ID = e.Employee_ID
+      GROUP BY p.Project_ID, p.Project_Name
+      HAVING SUM(e.Salary * ep.Hours_Worked) > 10000;
