@@ -23,12 +23,11 @@ public class HighestAverage
         double average = sum/n;
         return average;
     }
-    public static void main(String[] args) {
-        String[][] scores = {{"Charles", "84"},
-                {"John", "10"},
-                {"Andy", "37"},
-                {"John", "23"},
-                {"Charles", "21"}};
+    public static double highestAverage(String[][] scores){
+      if(scores == null){
+      return 0;
+      }
+      else{
         double highestavg = 0;
         Map<String, List<Integer>> mp = new HashMap<String, List<Integer>>();
         for(int i=0;i<scores.length;i++){
@@ -46,7 +45,16 @@ public class HighestAverage
             double avg = findAvg(entry.getValue());
             highestavg = Math.max(highestavg,avg);
         }
-        System.out.println(highestavg);
+        return highestavg;
+      }
+    }
+    public static void main(String[] args) {
+        String[][] scores = {{"Charles", "84"},
+                {"John", "10"},
+                {"Andy", "37"},
+                {"John", "23"},
+                {"Charles", "21"}};
+        System.out.println(highestAverage(scores));
     }
 }
 
@@ -55,10 +63,14 @@ Q2 . Logest Palindrome substring in a string
 -->
 public class longestPalindrome {
     public static void main(String[] args) {
-        String s = "iamthejuujehtmai";
+        String s = "abcabcdcbabcd";
         System.out.println(longestPalSubstr(s));
     }
     static String longestPalSubstr(String s) {
+        if(s == null){
+        return null;
+        }
+        else{
         int n = s.length();
         int maxLen = 1, start = 0;
         for (int i = 0; i < n; i++) {
@@ -70,6 +82,7 @@ public class longestPalindrome {
             }
         }
         return s.substring(start, start + maxLen);
+        }
     }
     static boolean checkPal(String s, int low, int high) {
         while (low < high) {
@@ -85,8 +98,7 @@ public class longestPalindrome {
 Q3 . Pascal Triangle
 
 class Solution {
-    public static void main(String[] args) {
-        int n=4;
+    public static void printPascalTriangle(int n){
         for(int line=1;line<=n;line++){
             for(int i=0;i<n-line;i++){
                 System.out.print(" ");
@@ -99,4 +111,8 @@ class Solution {
             System.out.println();
         }
     }
+    public static void main(String[] args) {
+        int n=6;
+        printPascalTriangle(n);  
+}
 }
