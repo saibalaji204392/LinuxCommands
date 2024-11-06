@@ -1,9 +1,12 @@
 Technology used:
 
+REST APIs, ApacheTomcat(Local server)
 Languages:
 Java
 
 Databases:
 MSSQL, Oracle
 
+Frameworks:
+Springboot
 
