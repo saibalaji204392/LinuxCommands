@@ -1,0 +1,28 @@
+Volante
+Business perspective of application::
+
+Volante Technologies provides financial integration platform. The Company offers cloud-native payments service solutions and low code financial platform to support message format with visual modelling, integrating, and orchestrating workflow that helps institutions and banks to grow their businesses. Volante's innovative solutions empower financial institutions to accelerate real-time payment
+
+User story 1::
+
+As a Developer I want to add Generate RFI(Request For Information) and Generate RRFI(Response to Request For Information) for payments in particular statuses.
+
+Acceptance criteria::
+
+When user clicks on Generate RFI button and add the required information it should create an RFI and show in external communication tab then Generate RRFI button enables and then bank can reply giving the proper response.
+
+User story 2::
+
+As a Developer I want to generate GPI Ack for the payments in its particular statuses.
+
+Acceptance criteria::
+
+When a payment is created and it is in the statuses as per they mention in user story, GPI Ack should be generated automatically show it in external communication tab.
+
+User story 3::
+
+As a Developer I want to automate all the ACKs processing for payments.
+
+Acceptance criteria::
+
+When a payment is created, in the particular statuses all the ACKs should be processed and generated respectively.
