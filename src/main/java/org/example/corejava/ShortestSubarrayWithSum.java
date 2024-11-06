@@ -1,4 +1,4 @@
-package corejava;
+package org.example.corejava;
 
 public class ShortestSubarrayWithSum {public static void main(String[] args) {
     int[] arr1 = {2, 4, 6, 10, 2, 1};

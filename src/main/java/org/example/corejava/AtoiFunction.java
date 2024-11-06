@@ -1,4 +1,4 @@
-package corejava;
+package org.example.corejava;
 
 public class AtoiFunction {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package corejava;
+package org.example.corejava;
 
 public class MinInRotatedArray {
     public static void main(String[] args) {

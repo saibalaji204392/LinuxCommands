@@ -1,4 +1,4 @@
-package corejava;
+package org.example.corejava;
 
 import java.util.Arrays;
 
