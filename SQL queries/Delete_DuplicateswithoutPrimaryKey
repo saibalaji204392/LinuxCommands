@@ -1,0 +1,19 @@
+--emp_proj_backup_11-12-2024
+create table temp_ep(project_id int, employee_id int);
+
+start TRANSACTION;
+
+  insert into temp_ep(project_id, employee_id)
+  select project_id, employee_id from (
+    select *, row_number() over(partition by project_id, employee_id) as row_num
+    from employees_projects ) as subquery
+  where row_num = 1;
+
+delete from employees_projects;
+
+insert into employees_projects (project_id, employee_id)
+select project_id, employee_id from temp_ep;
+
+--truncate the temp_table
+
+commit;

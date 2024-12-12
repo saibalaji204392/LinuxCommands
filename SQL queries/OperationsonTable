@@ -1,0 +1,27 @@
+Q. In Employees_Projects table some rows reference employees who no longer exist in the employees table. Remove these orphaned rows
+
+delete
+from employees_projects
+where employee_id not in (select id
+                          from employees);
+
+----------------------------------------
+
+Q. Detect Salary gaps
+hint: you want to compare the average salary between departments.
+
+select department_id, avg(salary) avg_sal, stddev(salary) sal_gap
+from employees
+group by department_id
+
+-----------------------------------------------
+
+Q. Employees working on more than 1 project
+
+insert into employees_projects (project_id, employee_id) values (1,1);
+
+select e.*
+from employees e
+join employees_projects ep on ep.employee_id = e.id
+group by employee_id
+having count(project_id) >1
